@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "description":
     "A javascript/nodejs multipart/form-data parser which operates on raw data.",
-  "main": "src/multipart.js",
+  "main": "src/multipart.ts",
   "author": "Ignacio Mazzara (nachomazzara@gmail.com)",
   "license": "MIT",
   "scripts": {
