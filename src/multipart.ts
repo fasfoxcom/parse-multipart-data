@@ -199,7 +199,7 @@ function process(part: Part): Input {
 
   // always process the name field
   Object.defineProperty(input, 'name', {
-    value: name.split('=')[1].replace(/"/g, ''),
+    value: name,
     writable: true,
     enumerable: true,
     configurable: true
