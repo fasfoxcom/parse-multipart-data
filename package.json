@@ -8,6 +8,7 @@
   "author": "Ignacio Mazzara (nachomazzara@gmail.com)",
   "license": "MIT",
   "scripts": {
+    "prepare": "npm run build",
     "prebuild": "rm -rf dist",
     "build": "tsc --project tsconfig.json",
     "test": "nyc mocha --require ts-node/register test/*.spec.ts",
