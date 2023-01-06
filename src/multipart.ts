@@ -190,7 +190,13 @@ function process(part: Part): Input {
       configurable: true
   })
 
-  const name = header[1] !== undefined ? header[1]: "filename"
+  let name = header[1]
+  if (name!==undefined) {
+      name = name.split('=')[1].replace(/"/g, '')
+  } else {
+      name="file"
+  }
+
   // always process the name field
   Object.defineProperty(input, 'name', {
     value: name.split('=')[1].replace(/"/g, ''),
