@@ -176,7 +176,7 @@ function process(part: Part): Input {
   const header = part.contentDispositionHeader.split(';')
 
   // Extract the filename if present
-  const filenameData = header[2] || "uploaded_file"
+  const filenameData = header[2] || `filename="uploaded_file"`
   let input = {}
   if (filenameData) {
     input = obj(filenameData)
