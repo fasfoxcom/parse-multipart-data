@@ -176,23 +176,23 @@ function process(part: Part): Input {
   const header = part.contentDispositionHeader.split(';')
 
   // Extract the filename if present
-  const filenameData = header[2] || `filename="uploaded_file"`
+  const filenameData = header[2]
   let input = {}
   if (filenameData) {
     input = obj(filenameData)
+
+    // If the filename is not present, it's surely a field
+    const contentType = part.contentTypeHeader.split(':')[1].trim()
+    Object.defineProperty(input, 'type', {
+      value: contentType,
+      writable: true,
+      enumerable: true,
+      configurable: true
+    })
   }
 
-  const contentType = part.contentTypeHeader.split(':')[1].trim()
-  Object.defineProperty(input, 'type', {
-    value: contentType,
-    writable: true,
-    enumerable: true,
-    configurable: true
-  })
-
-  let name = header[1] || `name="file"`
+  let name = header[1] || `name="fieldOrFile"`
   name = name.split('=')[1].replace(/"/g, '')
-
 
   // always process the name field
   Object.defineProperty(input, 'name', {
