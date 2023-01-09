@@ -2,7 +2,7 @@
  * Multipart Parser (Finite State Machine)
  * usage:
  * const multipart = require('./multipart.js');
- * const body = multipart.DemoData(); 							   // raw body
+ * const body = multipart.DemoData();                 // raw body
  * const body = Buffer.from(event['body-json'].toString(),'base64'); // AWS case
  * const boundary = multipart.getBoundary(event.params.header['content-type']);
  * const parts = multipart.Parse(body,boundary);
@@ -159,7 +159,7 @@ function process(part: Part): Input {
   // part: 'AAAABBBB' }
   // into this one:
   // { filename: 'A.txt', type: 'text/plain', data: <Buffer 41 41 41 41 42 42 42 42> }
-  const obj = function (str: string) {
+  const obj = function(str: string) {
     const k = str.split('=')
     const a = k[0].trim()
 
@@ -184,18 +184,15 @@ function process(part: Part): Input {
 
   const contentType = part.contentTypeHeader.split(':')[1].trim()
   Object.defineProperty(input, 'type', {
-      value: contentType,
-      writable: true,
-      enumerable: true,
-      configurable: true
+    value: contentType,
+    writable: true,
+    enumerable: true,
+    configurable: true
   })
 
-  let name = header[1]
-  if (name!==undefined) {
-      name = name.split('=')[1].replace(/"/g, '')
-  } else {
-      name="file"
-  }
+  let name = header[1] || `name="file"`
+  name = name.split('=')[1].replace(/"/g, '')
+
 
   // always process the name field
   Object.defineProperty(input, 'name', {
